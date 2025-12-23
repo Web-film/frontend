@@ -9,12 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "next": "16.0.10",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "react": "19.2.1",
     "react-dom": "19.2.1",
-    "yarn": "^1.22.22"
+    "yarn": "^1.22.22",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

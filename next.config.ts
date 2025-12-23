@@ -1,7 +1,24 @@
 import type { NextConfig } from "next";
+import { z } from 'zod'
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+// const nextConfig: NextConfig = {
+//   /* config options here */
+// };
 
-export default nextConfig;
+
+const configSchema = z.object({
+  NEXT_PUBLIC_API_ENDPOINT: z.string(),
+})
+
+const configProject = configSchema.safeParse({
+  NEXT_PUBLIC_API_ENDPOINT: process.env.NEXT_PUBLIC_API_ENDPOINT,
+})
+if (!configProject.success) {
+  console.error(configProject.error.issues)
+  throw new Error('Các giá trị khai báo trong file .env không hợp lệ')
+}
+
+const envConfig = configProject.data
+export default envConfig
+
+// export default nextConfig;

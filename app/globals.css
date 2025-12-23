@@ -3,6 +3,30 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --bg-color: #191b24;
+  --text-base: #aaa;
+  --primary-color: #ffd875;
+  --primary-color-hover: #ffde8a;
+  --primary-button-text: #191b24;
+  --primary-text: #ffd875;
+  --top-bg-default: #202331;
+  --border-color: #ffffff10;
+  --bg-2: #282b3a;
+  --bg-3: #2f3346;
+  --bg-4: #3e435c;
+  --bg-5: #535d8e;
+  --footer-bg: #0f111a;
+  --shadow-large: 0 0 20px 20px rgba(0, 0, 0, 0.1);
+  --h-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+  --category-name: #fff;
+  --padding-base: 40px;
+  --bs-border-color: rgba(0, 0, 0, 0.3);
+  --Toastify__progress-bar--error: #f85f5f !important;
+  --toastify-icon-color-error: #f85f5f !important;
+  --bg-red: #78140f;
+  --bg-search: rgba(255, 255, 255, 0.08);
+  --bg-navbar: rgba(15, 17, 26, .95) !important;
+  --bg-hover-navbar: #ffffff05 !important;
 }
 
 @theme inline {
@@ -20,7 +44,76 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: var(--bg-color);
+  color: var(--text-base);
+  box-sizing: border-box;
+}
+
+/* Container */
+.container,
+header {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+@media (min-width: 576px) {
+  .container,
+  header {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container,
+  header {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container,
+  header {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container,
+  header {
+    max-width: 1140px;
+    padding: 0 1.875rem;
+  }
+}
+@media (min-width: 1400px) {
+  .container,
+  header {
+    max-width: 1900px;
+    padding: 0 3.125rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+header {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgb(25, 27, 36);
+  background: linear-gradient(0deg, rgba(25, 27, 36, 0), rgba(25, 27, 36, 1));
+}
+
+header.fly {
+  background: transparent !important;
+}
+
+header.fixed {
+  background-color: var(--footer-bg) !important;
 }
