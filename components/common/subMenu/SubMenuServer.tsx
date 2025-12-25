@@ -1,5 +1,5 @@
-import SubMenu from "@/components/common/subMenu/SubMenu";
 import { Genre, getGenres } from "@/lib/service";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function SubMenuServer() {
@@ -14,6 +14,19 @@ export default function SubMenuServer() {
     fetchGenres();
   }, []);
 
-  // console.log(genres);
-  return <SubMenu genres={genres} />;
+  return (
+    <div className="absolute left-0 top-full mt-2 bg-[var(--bg-navbar)] rounded-md shadow-lg p-2 z-50 w-max">
+      <div className="grid grid-cols-4 gap-1 text-sm">
+        {genres.map((genre) => (
+          <Link
+            key={genre.id}
+            href={`/`}
+            className="flex items-center px-1.5 py-1 hover:text-[var(--primary-text)] hover:bg-[var(--bg-hover-navbar)] rounded-lg w-[140px]"
+          >
+            {genre.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }

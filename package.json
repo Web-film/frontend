@@ -9,12 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.27.16",
     "@heroicons/react": "^2.2.0",
     "next": "16.0.10",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "react": "19.2.1",
     "react-dom": "19.2.1",
+    "swiper": "^12.0.3",
     "yarn": "^1.22.22",
     "zod": "^4.2.1"
   },

@@ -1,5 +1,7 @@
 import Footer from "@/components/layouts/Footer";
 import Navigation from "@/components/layouts/Navigation";
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const DefaultLayout = ({
   children,
@@ -7,7 +9,7 @@ const DefaultLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className="container">
+    <div>
       <Navigation />
       {children}
       <Footer />
