@@ -12,7 +12,7 @@ function ListFilm({
   title?: string;
 }) {
   return (
-    <div className="relative list-film flex justify-between items-center gap-6">
+    <div className="relative flex-tf-col-mobile list-film flex justify-between items-center gap-6">
       <TitleListFilm
         title={title || "Top 10 bộ phim thịnh hành"}
         href="/"

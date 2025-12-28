@@ -21,14 +21,14 @@ function Navbar() {
   }, []);
 
   return (
-    <nav className="flex items-center space-x-6 text-white text-sm">
-      <Link href="/" className="hover:text-[var(--primary-text)]">
+    <nav className="flex flex-tf-col-mobile items-center space-x-6 text-white text-sm">
+      <Link href="/" className="min-w-max hover:text-[var(--primary-text)]">
         Phim Lẻ
       </Link>
-      <Link href="/about" className="hover:text-[var(--primary-text)]">
+      <Link href="/" className="min-w-max hover:text-[var(--primary-text)]">
         Phim Bộ
       </Link>
-      <div ref={ref} className="relative">
+      <div ref={ref} className="min-w-max relative">
         <button
           onClick={() => setOpen(!open)}
           className="hover:text-[var(--primary-text)] cursor-pointer flex items-center"

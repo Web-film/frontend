@@ -11,7 +11,7 @@ function BannerItem({ film }: { film: FilmType }) {
         style={{ backgroundImage: `url(${film.poster_path})` }}
       ></div>
       <div className="overlay z-5 relative max-w-[700px] w-full py-[100px] px-[50px] mt-[50px]">
-        <Link href="/">
+        <Link href={`/film/${film.id}`}>
           <h2 className="text-[var(--primary-color)]">{film.title}</h2>
         </Link>
         {film.genres && (
@@ -20,9 +20,9 @@ function BannerItem({ film }: { film: FilmType }) {
         <span className="inline-block text-shadow-[var(--text-shadow)] mb-[2rem] text-white">
           {film.overview}
         </span>
-        <div className="cursor-pointer h-[70px] w-[70px] min-h-[70px] min-w-[70px] rounded-[50%] flex items-center justify-center bg-[#fecf59ff] hover:shadow-[var(--text-shadow-hover)] hover:opacity-100 opacity-90">
+        <Link href={`/film/${film.id}`} className="cursor-pointer h-[70px] w-[70px] min-h-[70px] min-w-[70px] rounded-[50%] flex items-center justify-center bg-[#fecf59ff] hover:shadow-[var(--text-shadow-hover)] hover:opacity-100 opacity-90">
           <PlayIcon className="h-[29px] w-[21px] scale-125 text-black" />
-        </div>
+        </Link>
       </div>
     </div>
   );

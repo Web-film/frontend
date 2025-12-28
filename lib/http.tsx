@@ -70,8 +70,8 @@ async function request<Response>(
 
   const payload: Response = await res.json();
 
-  if (!res.ok) {
-    throw new Error(payload?.toString() || "HTTP request failed");
+  if (!res.ok) { 
+    return {status: res.status, payload: null, mess: 'Lỗi khi fetch dữ liệu'}
   }
 
   return { status: res.status, payload };

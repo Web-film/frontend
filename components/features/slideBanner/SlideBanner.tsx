@@ -27,8 +27,10 @@ function SlideBanner({ banners }: { banners: FilmType[] }) {
           </SwiperSlide>
         ))}
       </Swiper>
-      <Swiper
-        className="baner-swiper-thumbs w-[450px] h-[45px] right-[calc(50%-1800px)] bottom-[212px] absolute"
+      {/* <div className="absolute right-0"> */}
+      <div className="dis-non-mobile">
+        <Swiper
+        className="baner-swiper-thumbs w-[450px] h-[45px] right-[calc(-50%+450px)] bottom-[212px] absolute"
         freeMode={true}
         slidesPerView={6}
         spaceBetween={10}
@@ -42,6 +44,9 @@ function SlideBanner({ banners }: { banners: FilmType[] }) {
           </SwiperSlide>
         ))}
       </Swiper>
+      </div>
+      
+      {/* </div> */}
     </div>
   );
 }

@@ -14,10 +14,11 @@ function TitleListFilm({
     <div className="title-list-film w-[200px]">
       <h2
         style={{
-          background: bgText ? bgText : "var(--bg-text-title)",
-          WebkitTextFillColor: "transparent",
-          WebkitBackgroundClip: "text !important",
+          // background: bgText ? bgText : "var(--bg-text-title)",
+          // WebkitTextFillColor: "transparent",
+          // WebkitBackgroundClip: "text !important",
         }}
+        className="text-[var(--primary-color)] mb-2"
       >
         {title}
       </h2>

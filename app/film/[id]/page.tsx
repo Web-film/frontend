@@ -1,31 +1,47 @@
 import Genres from "@/components/common/genres/Genres";
 import FilmTv from "@/components/features/filmTv/FilmTv";
-import { getDetailFilm, getSeasonByFilm, seasonType } from "@/lib/service";
+import {
+  episodeType,
+  FilmType,
+  getDetailFilm,
+  getEpisodeBySeason,
+  getSeasonByFilm,
+  seasonType,
+} from "@/lib/service";
 import { PlayIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
+import { number } from "zod";
 
 async function Film({ params }: { params: { id: string } }) {
   const { id } = await params;
   const film = await getDetailFilm(Number(id));
-  let getSeasonByFilms: seasonType | null = null;
+  let getSeasonByFilms: seasonType[] | null = null;
+  let getEpisodeBySeasons: episodeType[] | null = null;
+  const srcImage = film?.poster_path || film?.backdrop_path;
 
   if (film.type === "tv") {
     getSeasonByFilms = await getSeasonByFilm(Number(id));
-  }
 
+    if (getSeasonByFilms[0]?.id) {
+      getEpisodeBySeasons = await getEpisodeBySeason(
+        Number(getSeasonByFilms[0].id)
+      );
+    }
+  }
   return (
     <div className="film-detail">
       <div className="top-detail-wrap">
         <div className="relative w-full h-0 pb-[42%] overflow-hidden">
           <img
             className="absolute inset-0 w-full h-full object-cover opacity-20"
-            src={film.poster_path}
+            src={srcImage}
             alt={film.title}
           />
         </div>
       </div>
       <div
         className="
+          flex-tf-col-mobile
           max-w-[1640px] 
           px-[1.25rem] 
           mt-[-200px] 
@@ -43,13 +59,13 @@ async function Film({ params }: { params: { id: string } }) {
           p-[2.5rem] 
           backdrop-filter-[blur(20px)] 
           bg-[var(--bg-des-film)]
-          w-[27.5%]"
+          w-full lg:w-[27.5%]"
         >
           <div>
             <div className="max-w-[160px]">
               <div className=" relative w-full h-0 pb-[150%] overflow-hidden rounded-xl">
                 <img
-                  src={film.poster_path}
+                  src={srcImage}
                   alt={film.title}
                   className="w-full h-auto rounded-lg object-cover"
                 />
@@ -119,12 +135,18 @@ async function Film({ params }: { params: { id: string } }) {
           rounded-bl-[1.25rem]
           backdrop-filter-[blur(20px)] 
           bg-[var(--bg-des-film)]
-          w-[72.5%]
+          w-full lg:w-[72.5%]
           flex flex-col"
         >
           <div className="p-[1.875rem]">
             <Link
-              href={`/film/${film.id}`}
+              href={
+                film?.type === "movie"
+                  ? `/video/movie/${film.id}`
+                  : getSeasonByFilms[0]?.id && getEpisodeBySeasons[0]?.id
+                    ? `/video/tv/${getSeasonByFilms[0].id}/${getEpisodeBySeasons[0].id}`
+                    : "#"
+              }
               className="
               px-[2rem] py-[0.95rem] 
               bg-primary min-h-[3.75rem] 

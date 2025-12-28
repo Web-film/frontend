@@ -16,7 +16,7 @@ export default function SubMenuServer() {
 
   return (
     <div className="absolute left-0 top-full mt-2 bg-[var(--bg-navbar)] rounded-md shadow-lg p-2 z-50 w-max">
-      <div className="grid grid-cols-4 gap-1 text-sm">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 text-sm">
         {genres.map((genre) => (
           <Link
             key={genre.id}

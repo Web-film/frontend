@@ -3,11 +3,17 @@ import { PlayIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 
 export default function FilmItem({ film }: { film: FilmType }) {
+  const imageSrc = film.poster_path?.trim()
+    ? film.poster_path
+    : film.backdrop_path?.trim()
+      ? film.backdrop_path
+      : null;
+
   return (
     <div className="">
       <div className="h-0 pb-[60%] overflow-hidden relative">
         <img
-          src={film.poster_path || film.backdrop_path}
+          src={imageSrc}
           alt={film.title}
           className="absolute inset-0 w-full h-full object-cover rounded-xl"
         />
@@ -32,7 +38,7 @@ export default function FilmItem({ film }: { film: FilmType }) {
             Xem ngay
           </Link>
           <Link
-             href={`/film/${film.id}`}
+            href={`/film/${film.id}`}
             className="px-3 py-2 border border-gray-600 min-h-[2.5rem] flex items-center rounded-md text-sm hover:text-[var(--primary-text)]"
           >
             Chi tiết

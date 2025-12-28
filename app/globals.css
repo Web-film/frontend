@@ -42,8 +42,8 @@
     rgb(255, 255, 255) 30%,
     rgb(103, 65, 150) 130%
   );
-  --bg-des-film: rgba(25,27,36,.3);
-  --box-shadow-film: 0 5px 10px 10px rgba(255,218,125,.15);
+  --bg-des-film: rgba(25, 27, 36, 0.3);
+  --box-shadow-film: 0 5px 10px 10px rgba(255, 218, 125, 0.15);
 }
 
 @theme inline {
@@ -68,6 +68,9 @@ body {
   background: var(--bg-color);
   color: var(--text-base);
   box-sizing: border-box;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-weight: 400;
 }
 
 /* Container */
@@ -76,9 +79,42 @@ header {
   width: 100%;
   margin: 0 auto;
   padding: 0 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.4;
-  font-weight: 400;
+}
+
+.flex-tf-col-mobile {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.dis-non-mobile {
+  display: none;
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  /* margin: 0 0 0.75rem 0; */
+}
+
+h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  /* margin: 0 0 0.75rem 0; */
+}
+
+h2 {
+  /* color: var(--primary-text); */
+  font-size: 1.5rem;
+  font-weight: 600;
+  /* margin: 0 0 0.75rem 0; */
+}
+
+h1 {
+  color: var(--primary-text);
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
 }
 
 @media (min-width: 576px) {
@@ -97,6 +133,36 @@ header {
   .container,
   header {
     max-width: 960px;
+  }
+
+  body {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  .flex-tf-col-mobile {
+    flex-direction: row;
+  }
+
+  .dis-non-mobile {
+    display: block;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
   }
 }
 @media (min-width: 1200px) {
@@ -135,26 +201,6 @@ header {
   background: linear-gradient(0deg, rgba(25, 27, 36, 0), rgba(25, 27, 36, 1));
 }
 
-h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  /* margin: 0 0 0.75rem 0; */
-}
-
-h2 {
-  /* color: var(--primary-text); */
-  font-size: 1.5rem;
-  font-weight: 600;
-  /* margin: 0 0 0.75rem 0; */
-}
-
-h1 {
-  color: var(--primary-text);
-  font-size: 2rem;
-  font-weight: 600;
-  margin: 0 0 0.75rem 0;
-}
-
 header.fly {
   background: transparent !important;
 }
@@ -186,4 +232,22 @@ header.fixed {
 .swiper-button-disabled {
   opacity: 0 !important;
   pointer-events: none;
+}
+
+.max-content {
+  max-width: 1640px;
+  padding: 0 20px;
+  margin: auto;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.header-scroll {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  background: rgba(18, 18, 18, 0.9);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  max-width: 100vw;
 }
