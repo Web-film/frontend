@@ -37,6 +37,7 @@ function Navigation() {
           </div>
 
           <button
+            title="Bars3Icon"
             onClick={() => setOpenMobile(true)}
             className="lg:hidden text-white"
           >
@@ -50,6 +51,7 @@ function Navigation() {
           <div className="absolute top-0 left-0 w-72 h-full bg-[#121212] p-4">
             <div className="flex justify-end mb-4">
               <button
+                title="tắt"
                 onClick={() => setOpenMobile(false)}
                 className="text-white"
               >

@@ -1,4 +1,5 @@
 import http from "@/lib/http";
+import envConfig from "@/next.config";
 
 export type Genre = {
   id: number;
@@ -124,10 +125,12 @@ export type episodeManyTypeResponse = {
   data: episodeType[];
 };
 
+const BaseUrl = envConfig.NEXT_PUBLIC_API_ENDPOINT || "http://localhost:3001";
+
 export async function getGenres(): Promise<Genre[]> {
   const res = await http.get<Genre[]>("/genres", {
-    baseUrl: "http://localhost:3001",
-    cache: "no-store",
+    baseUrl: BaseUrl,
+    cache: "force-cache",
   });
 
   return res.payload;
@@ -149,7 +152,7 @@ export async function getFilm(params: {
   if (params.genreId) query.append("genreId", params.genreId);
 
   const res = await http.get<FilmResponse>(`/films?${query.toString()}`, {
-    baseUrl: "http://localhost:3001",
+    baseUrl: BaseUrl,
     cache: "no-store",
   });
 
@@ -169,7 +172,7 @@ export async function getNew(limit: number, page: number): Promise<FilmType[]> {
   const res = await http.get<FilmResponse>(
     `/films/new?limit=${limit}&page=${page}`,
     {
-      baseUrl: "http://localhost:3001",
+      baseUrl: BaseUrl,
       cache: "no-store",
     }
   );
@@ -183,7 +186,7 @@ export async function getBanners(
   const res = await http.get<FilmResponse>(
     `/films/newUpdate?limit=${limit}&page=${page}`,
     {
-      baseUrl: "http://localhost:3001",
+      baseUrl: BaseUrl,
       cache: "no-store",
     }
   );
@@ -197,7 +200,7 @@ export async function getPopular(
   const res = await http.get<FilmResponse>(
     `/films/popular?limit=${limit}&page=${page}`,
     {
-      baseUrl: "http://localhost:3001",
+      baseUrl: BaseUrl,
       cache: "no-store",
     }
   );
@@ -206,7 +209,7 @@ export async function getPopular(
 
 export async function getDetailFilm(id: number): Promise<FilmType> {
   const res = await http.get<FilmDetailResponse>(`/films/${id}`, {
-    baseUrl: "http://localhost:3001",
+    baseUrl: BaseUrl,
     cache: "no-store",
   });
   return res.payload?.data || {};
@@ -216,7 +219,7 @@ export async function getSeasonByFilm(film_id: number): Promise<seasonType[]> {
   const res = await http.get<seasonTypeResponse>(
     `/seasons/getSeasonsByFilm?film_id=${film_id}`,
     {
-      baseUrl: "http://localhost:3001",
+      baseUrl: BaseUrl,
       cache: "no-store",
     }
   );
@@ -225,7 +228,7 @@ export async function getSeasonByFilm(film_id: number): Promise<seasonType[]> {
 
 export async function getSeasonById(season_id: number): Promise<seasonType> {
   const res = await http.get<seasonTypeResponse>(`/seasons/${season_id}`, {
-    baseUrl: "http://localhost:3001",
+    baseUrl: BaseUrl,
     cache: "no-store",
   });
   return res.payload?.data?.items || {};
@@ -237,7 +240,7 @@ export async function getEpisodeBySeason(
   const res = await http.get<episodeManyTypeResponse>(
     `/episodes/getEpisodeBySeason?season_id=${season_id}`,
     {
-      baseUrl: "http://localhost:3001",
+      baseUrl: BaseUrl,
       cache: "no-store",
     }
   );
@@ -251,7 +254,7 @@ export async function checkEpisode(
   const res = await http.get<any | null>(
     `/seasons/checkEpisode?season_id=${season_id}&episode_id=${episode_id}`,
     {
-      baseUrl: "http://localhost:3001",
+      baseUrl: BaseUrl,
       cache: "no-store",
     }
   );
@@ -265,7 +268,7 @@ export async function increaseViewMovie(
   const res = await http.put<FilmTypeResponse>(
     `/films/increaseView/${film_id}`,
     {
-      baseUrl: "http://localhost:3001",
+      baseUrl: BaseUrl,
       cache: "no-store",
     }
   );
@@ -279,7 +282,7 @@ export async function increaseViewTv(
   const res = await http.put<episodeItemTypeResponse>(
     `/episodes/increaseView/${episode_id}`,
     {
-      baseUrl: "http://localhost:3001",
+      baseUrl: BaseUrl,
       cache: "no-store",
     }
   );

@@ -7,17 +7,21 @@ import { useEffect, useRef, useState } from "react";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("pointerdown", handleClickOutside);
+    return () =>
+      document.removeEventListener("pointerdown", handleClickOutside);
   }, []);
 
   return (
@@ -25,22 +29,36 @@ function Navbar() {
       <Link href="/" className="min-w-max hover:text-[var(--primary-text)]">
         Trang chủ
       </Link>
-      <Link href="/type/movie" className="min-w-max hover:text-[var(--primary-text)]">
+
+      <Link
+        href="/type/movie"
+        className="min-w-max hover:text-[var(--primary-text)]"
+      >
         Phim Lẻ
       </Link>
-      <Link href="/type/tv" className="min-w-max hover:text-[var(--primary-text)]">
+
+      <Link
+        href="/type/tv"
+        className="min-w-max hover:text-[var(--primary-text)]"
+      >
         Phim Bộ
       </Link>
-      <div ref={ref} className="min-w-max relative">
+
+      <div ref={wrapperRef} className="min-w-max relative">
         <button
-          onClick={() => setOpen(!open)}
+          type="button"
+          onClick={() => setOpen((prev) => !prev)}
           className="hover:text-[var(--primary-text)] cursor-pointer flex items-center"
         >
           Thể Loại
-          <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+          <ChevronDownIcon className="-mr-1 size-5 text-gray-400" />
         </button>
 
-        {open && <SubMenuServer />}
+        {open && (
+          <div onClick={() => setOpen(false)}>
+            <SubMenuServer />
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -6,16 +6,16 @@ export default async function Home() {
   const banners = await getBanners(6, 1);
   const popularFilms = await getPopular(10, 1);
   const newFilms = await getNew(24, 1);
-  const filmMove = await getFilm({
-    limit: 24,
-    page: 1,
-    type: "movie",
-  });
-  const filmTv = await getFilm({
-    limit: 24,
-    page: 1,
-    type: "tv",
-  });
+  // const filmMove = await getFilm({
+  //   limit: 24,
+  //   page: 1,
+  //   type: "movie",
+  // });
+  // const filmTv = await getFilm({
+  //   limit: 24,
+  //   page: 1,
+  //   type: "tv",
+  // });
 
   return (
     <main>
@@ -32,7 +32,7 @@ export default async function Home() {
             films={newFilms}
             title="Phim mới cập nhật"
           />
-          {filmTv?.items && (
+          {/* {filmTv?.items && (
             <ListFilm
               classNameSlide={"slide-movie"}
               films={filmMove?.items}
@@ -46,7 +46,7 @@ export default async function Home() {
               films={filmTv?.items}
               title="Phim bộ mới nhất"
             />
-          )}
+          )} */}
         </div>
       </div>
     </main>
