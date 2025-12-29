@@ -23,9 +23,12 @@ function Navbar() {
   return (
     <nav className="flex flex-tf-col-mobile items-center space-x-6 text-white text-sm">
       <Link href="/" className="min-w-max hover:text-[var(--primary-text)]">
+        Trang chủ
+      </Link>
+      <Link href="/type/movie" className="min-w-max hover:text-[var(--primary-text)]">
         Phim Lẻ
       </Link>
-      <Link href="/" className="min-w-max hover:text-[var(--primary-text)]">
+      <Link href="/type/tv" className="min-w-max hover:text-[var(--primary-text)]">
         Phim Bộ
       </Link>
       <div ref={ref} className="min-w-max relative">

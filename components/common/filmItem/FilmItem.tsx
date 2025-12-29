@@ -7,7 +7,7 @@ export default function FilmItem({ film }: { film: FilmType }) {
     ? film.poster_path
     : film.backdrop_path?.trim()
       ? film.backdrop_path
-      : null;
+      : undefined;
 
   return (
     <div className="">

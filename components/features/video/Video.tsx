@@ -39,7 +39,7 @@ export default function Video({
 }) {
   const [episodes, setEpisodes] = useState<episodeType[]>([]);
   const [seasonList, setSeasonList] = useState<seasonType[]>([]);
-  const [filmData, setFilmData] = useState<FilmType>({});
+  const [filmData, setFilmData] = useState<FilmType>();
   const [currentEp, setCurrentEp] = useState(0);
 
   const playerRef = useRef<YouTubePlayer | null>(null);

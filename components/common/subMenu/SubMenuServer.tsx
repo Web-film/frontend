@@ -20,7 +20,7 @@ export default function SubMenuServer() {
         {genres.map((genre) => (
           <Link
             key={genre.id}
-            href={`/`}
+            href={`/list/${genre.id}/${genre.name}`}
             className="flex items-center px-1.5 py-1 hover:text-[var(--primary-text)] hover:bg-[var(--bg-hover-navbar)] rounded-lg w-[140px]"
           >
             {genre.name}

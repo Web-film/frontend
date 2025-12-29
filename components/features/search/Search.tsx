@@ -3,6 +3,7 @@
 import useDebounce from "@/components/hooks/useDebounce";
 import { getFilm } from "@/lib/service";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/16/solid";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 function Search() {
@@ -25,7 +26,7 @@ function Search() {
         limit: 8,
         search: debouncedSearchTerm,
       });
-      setListSearch(data);
+      setListSearch(data.items);
     })();
   }, [debouncedSearchTerm]);
 
@@ -72,8 +73,10 @@ function Search() {
           {listSearch.map((film) => {
             const imgSrc = film?.poster_path || film?.backdrop_path;
             return (
-              <div
+              <Link
+                href={`/film/${film.id}`}
                 key={film.id}
+                onClick={()=> handleClear()}
                 className="flex items-center gap-3 px-3 py-2 hover:bg-[#2a2a2a] cursor-pointer"
               >
                 <img
@@ -88,7 +91,7 @@ function Search() {
                 <h4 className="text-sm text-white line-clamp-2">
                   {film.title}
                 </h4>
-              </div>
+              </Link>
             );
           })}
         </div>

@@ -77,6 +77,17 @@ export type FilmResponse = {
   };
 };
 
+export type FilmListType = {
+  items: FilmType[];
+  pagination?: {
+    total?: number;
+    page?: number;
+    limit?: number;
+    totalPages?: number;
+    hasNextPage?: boolean;
+  };
+};
+
 export type FilmDetailResponse = {
   data: FilmType;
 };
@@ -126,21 +137,32 @@ export async function getFilm(params: {
   limit?: number;
   page?: number;
   type?: string;
+  genreId?: string;
   search?: string;
-}): Promise<FilmType[]> {
+}): Promise<FilmListType> {
   const query = new URLSearchParams();
 
   if (params.limit) query.append("limit", String(params.limit));
   if (params.page) query.append("page", String(params.page));
   if (params.type) query.append("type", params.type);
   if (params.search) query.append("search", params.search);
+  if (params.genreId) query.append("genreId", params.genreId);
 
   const res = await http.get<FilmResponse>(`/films?${query.toString()}`, {
     baseUrl: "http://localhost:3001",
     cache: "no-store",
   });
 
-  return res.payload?.data?.items || [];
+  return {
+    items: res.payload?.data?.items || [],
+    pagination: {
+      total: res?.payload?.data?.pagination?.total || 0,
+      page: res?.payload?.data?.pagination?.total || 1,
+      limit: res?.payload?.data?.pagination?.total || 0,
+      totalPages: res?.payload?.data?.pagination?.total || 1,
+      hasNextPage: res?.payload?.data?.pagination?.hasNextPage || false,
+    },
+  };
 }
 
 export async function getNew(limit: number, page: number): Promise<FilmType[]> {

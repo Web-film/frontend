@@ -87,7 +87,7 @@ async function Film({ params }: { params: { id: string } }) {
             <div className="flex items-center mt-4 mb-2 gap-2">
               <h3 className="text-[var(--text-white)]">Đạo diễn:</h3>
               <span>
-                {film?.directors && film.directors.length > 0
+                {Array.isArray(film?.directors) && film.directors.length > 0
                   ? film.directors
                       .map((director: any) => director.name)
                       .join(", ")
@@ -96,7 +96,7 @@ async function Film({ params }: { params: { id: string } }) {
             </div>
             <div>
               <h3 className="mt-4 mb-4 text-[var(--text-white)]">Diễn viên:</h3>
-              {film?.cast && film.cast.length > 0 ? (
+              {Array.isArray(film?.cast) && film.cast.length > 0 ? (
                 <div className="grid grid-cols-3 gap-4">
                   {film.cast.map((cast: any) => (
                     <div
@@ -109,7 +109,7 @@ async function Film({ params }: { params: { id: string } }) {
                             src={
                               cast.profile_path
                                 ? `${process.env.TMDB_PUBLIC_API_ENDPOINT}${cast.profile_path}`
-                                : ""
+                                : undefined
                             }
                             alt={cast.name}
                             className="absolute w-full h-full object-cover inset-0 rounded-[50%]"
@@ -143,7 +143,7 @@ async function Film({ params }: { params: { id: string } }) {
               href={
                 film?.type === "movie"
                   ? `/video/movie/${film.id}`
-                  : getSeasonByFilms[0]?.id && getEpisodeBySeasons[0]?.id
+                  : getSeasonByFilms?.[0]?.id && getEpisodeBySeasons?.[0]?.id
                     ? `/video/tv/${getSeasonByFilms[0].id}/${getEpisodeBySeasons[0].id}`
                     : "#"
               }

@@ -32,16 +32,21 @@ export default async function Home() {
             films={newFilms}
             title="Phim mới cập nhật"
           />
-          <ListFilm
-            classNameSlide={"slide-movie"}
-            films={filmMove}
-            title="Phim lẻ mới nhất"
-          />
-          <ListFilm
-            classNameSlide={"slide-tv"}
-            films={filmTv}
-            title="Phim bộ mới nhất"
-          />
+          {filmTv?.items && (
+            <ListFilm
+              classNameSlide={"slide-movie"}
+              films={filmMove?.items}
+              title="Phim lẻ mới nhất"
+            />
+          )}
+
+          {filmTv?.items && (
+            <ListFilm
+              classNameSlide={"slide-tv"}
+              films={filmTv?.items}
+              title="Phim bộ mới nhất"
+            />
+          )}
         </div>
       </div>
     </main>

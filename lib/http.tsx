@@ -1,8 +1,10 @@
 import envConfig from "@/next.config";
 
-export type CustomOptions = Omit<RequestInit, "method"> & {
+export interface CustomOptions {
+  headers?: HeadersInit;
   baseUrl?: string;
-};
+  cache?: RequestCache;
+}
 
 export type HttpResponse<T> = {
   status: number;
@@ -16,6 +18,16 @@ export type EntityErrorPayload = {
     message: string;
   }[];
 };
+
+export type JsonBody = Record<string, any>;
+
+export type RequestBody =
+  | JsonBody
+  | FormData
+  | string
+  | URLSearchParams
+  | Blob
+  | null;
 
 export class HttpError<T = unknown> extends Error {
   status: number;
@@ -37,44 +49,55 @@ export class EntityError extends HttpError<EntityErrorPayload> {
 async function request<Response>(
   method: "GET" | "POST" | "PUT" | "DELETE",
   url: string,
-  options?: CustomOptions & { body?: unknown }
+  options?: CustomOptions,
+  body?: RequestBody
 ) {
-  const isFormData = options?.body instanceof FormData;
+  const isFormData = body instanceof FormData;
+  const isBodyInit =
+    typeof body === "string" ||
+    body instanceof Blob ||
+    body instanceof URLSearchParams;
 
   const headers: HeadersInit = {
-    ...(isFormData ? {} : { "Content-Type": "application/json" }),
+    ...(isFormData || isBodyInit || body == null
+      ? {}
+      : { "Content-Type": "application/json" }),
     ...options?.headers,
   };
 
-  const baseUrl =
-    options?.baseUrl === undefined
-      ? envConfig.NEXT_PUBLIC_API_ENDPOINT
-      : options.baseUrl;
+  const fetchBody: BodyInit | null =
+    body == null
+      ? null
+      : isFormData || isBodyInit
+        ? body
+        : JSON.stringify(body);
+
+  const baseUrl = options?.baseUrl ?? envConfig.NEXT_PUBLIC_API_ENDPOINT;
 
   const fullUrl = url.startsWith("/")
     ? `${baseUrl}${url}`
     : `${baseUrl}/${url}`;
 
-  const body: BodyInit | null | undefined =
-    options?.body == null
-      ? null
-      : isFormData
-        ? options.body
-        : JSON.stringify(options.body);
-
   const res = await fetch(fullUrl, {
     method,
     headers,
-    body,
+    body: fetchBody,
   });
 
-  const payload: Response = await res.json();
+  const payload = await res.json();
 
-  if (!res.ok) { 
-    return {status: res.status, payload: null, mess: 'Lỗi khi fetch dữ liệu'}
+  if (!res.ok) {
+    return {
+      status: res.status,
+      payload: null,
+      mess: "Lỗi khi fetch dữ liệu",
+    };
   }
 
-  return { status: res.status, payload };
+  return {
+    status: res.status,
+    payload,
+  };
 }
 
 const http = {
@@ -82,12 +105,12 @@ const http = {
     return request<Response>("GET", url, options);
   },
 
-  post<Response>(url: string, body?: unknown, options?: CustomOptions) {
-    return request<Response>("POST", url, { ...options, body });
+  post<Response>(url: string, body?: RequestBody, options?: CustomOptions) {
+    return request<Response>("POST", url, options, body);
   },
 
-  put<Response>(url: string, body?: unknown, options?: CustomOptions) {
-    return request<Response>("PUT", url, { ...options, body });
+  put<Response>(url: string, body?: RequestBody, options?: CustomOptions) {
+    return request<Response>("PUT", url, options, body);
   },
 
   delete<Response>(url: string, options?: CustomOptions) {
